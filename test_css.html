@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气背景测试</title>
+    <style>
+        /* 基础样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .chat-container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .chat-main {
+            flex: 1;
+            padding: 20px;
+            background-color: #ffffff; /* 默认背景 */
+        }
+        
+        /* 天气背景样式 - 与style.css相同 */
+        body.weather-sunny .chat-main {
+            background: linear-gradient(135deg, #ffeb3b, #ffc107) !important;
+            transition: background 0.5s ease;
+        }
+        
+        body.weather-cloudy .chat-main {
+            background: linear-gradient(135deg, #90caf9, #64b5f6) !important;
+            transition: background 0.5s ease;
+        }
+        
+        body.weather-rainy .chat-main {
+            background: linear-gradient(135deg, #1a237e, #303f9f) !important;
+            transition: background 0.5s ease;
+        }
+        
+        body.weather-snowy .chat-main {
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2) !important;
+            transition: background 0.5s ease;
+        }
+        
+        body.weather-foggy .chat-main {
+            background: linear-gradient(135deg, #cfd8dc, #90a4ae) !important;
+            transition: background 0.5s ease;
+        }
+        
+        body.weather-stormy .chat-main {
+            background: linear-gradient(135deg, #37474f, #263238) !important;
+            transition: background 0.5s ease;
+        }
+        
+        /* 测试控制按钮 */
+        .test-controls {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .test-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .test-btn:hover {
+            background-color: #555;
+        }
+        
+        /* 当前样式显示 */
+        .current-class {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="sidebar">
+            <h2>聊天室</h2>
+            <p>在线用户列表</p>
+        </div>
+        <div class="chat-main">
+            <h2>聊天区域</h2>
+            <div class="messages">
+                <p>这是测试消息...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 测试控制按钮 -->
+    <div class="test-controls">
+        <button class="test-btn" onclick="setWeather('')">默认</button>
+        <button class="test-btn" onclick="setWeather('weather-sunny')">晴天</button>
+        <button class="test-btn" onclick="setWeather('weather-cloudy')">多云</button>
+        <button class="test-btn" onclick="setWeather('weather-rainy')">雨天</button>
+        <button class="test-btn" onclick="setWeather('weather-snowy')">雪天</button>
+        <button class="test-btn" onclick="setWeather('weather-foggy')">雾天</button>
+        <button class="test-btn" onclick="setWeather('weather-stormy')">雷阵雨</button>
+    </div>
+    
+    <!-- 当前样式显示 -->
+    <div class="current-class">
+        当前body类: <span id="current-class"></span>
+    </div>
+    
+    <script>
+        function setWeather(weatherClass) {
+            const body = document.body;
+            
+            // 移除所有天气相关类
+            const weatherClasses = ['weather-sunny', 'weather-cloudy', 'weather-rainy', 'weather-snowy', 'weather-foggy', 'weather-stormy'];
+            weatherClasses.forEach(cls => {
+                body.classList.remove(cls);
+            });
+            
+            // 添加新的天气背景类
+            if (weatherClass) {
+                body.classList.add(weatherClass);
+            }
+            
+            // 更新当前类显示
+            document.getElementById('current-class').textContent = body.className;
+        }
+        
+        // 初始化显示
+        window.onload = function() {
+            document.getElementById('current-class').textContent = document.body.className;
+        };
+    </script>
+</body>
+</html>

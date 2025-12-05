@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试天气背景</title>
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* 聊天区域样式 */
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header {
+            padding: 20px;
+            background-color: #3498db;
+            color: white;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .chat-header h2 {
+            font-size: 20px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            min-height: 300px;
+        }
+
+        /* 天气背景样式 */
+        body.weather-sunny .chat-main {
+            background: linear-gradient(135deg, #ffeb3b, #ffc107) !important;
+            transition: background 0.5s ease;
+        }
+
+        body.weather-cloudy .chat-main {
+            background: linear-gradient(135deg, #90caf9, #64b5f6) !important;
+            transition: background 0.5s ease;
+        }
+
+        body.weather-rainy .chat-main {
+            background: linear-gradient(135deg, #1a237e, #303f9f) !important;
+            transition: background 0.5s ease;
+        }
+
+        body.weather-snowy .chat-main {
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2) !important;
+            transition: background 0.5s ease;
+        }
+
+        body.weather-foggy .chat-main {
+            background: linear-gradient(135deg, #cfd8dc, #90a4ae) !important;
+            transition: background 0.5s ease;
+        }
+
+        body.weather-stormy .chat-main {
+            background: linear-gradient(135deg, #37474f, #263238) !important;
+            transition: background 0.5s ease;
+        }
+
+        /* 测试按钮样式 */
+        .test-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px;
+        }
+
+        .test-btn {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .test-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* 调试信息样式 */
+        .debug-info {
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .debug-info h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .debug-info pre {
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>测试天气背景功能</h1>
+
+    <div class="test-buttons">
+        <button class="test-btn" onclick="setWeatherBackground('晴')">晴</button>
+        <button class="test-btn" onclick="setWeatherBackground('多云')">多云</button>
+        <button class="test-btn" onclick="setWeatherBackground('阴')">阴</button>
+        <button class="test-btn" onclick="setWeatherBackground('小雨')">小雨</button>
+        <button class="test-btn" onclick="setWeatherBackground('雪')">雪</button>
+        <button class="test-btn" onclick="setWeatherBackground('雾')">雾</button>
+        <button class="test-btn" onclick="setWeatherBackground('雷阵雨')">雷阵雨</button>
+        <button class="test-btn" onclick="clearWeatherBackground()">清除背景</button>
+    </div>
+
+    <div class="chat-main">
+        <div class="chat-header">
+            <h2>聊天室</h2>
+        </div>
+        <div class="chat-messages">
+            <div class="message system">
+                <div class="message-content">这是聊天区域，背景颜色会根据天气类型变化。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="debug-info">
+        <h3>调试信息</h3>
+        <pre id="debug-log"></pre>
+    </div>
+
+    <script>
+        function setWeatherBackground(weatherType) {
+            // 移除所有天气相关的类
+            document.body.classList.remove('weather-sunny', 'weather-cloudy', 'weather-rainy', 'weather-snowy', 'weather-foggy', 'weather-stormy');
+            
+            // 根据天气类型添加对应的类
+            let weatherClass = '';
+            switch(weatherType) {
+                case '晴':
+                    weatherClass = 'weather-sunny';
+                    break;
+                case '多云':
+                case '阴':
+                    weatherClass = 'weather-cloudy';
+                    break;
+                case '小雨':
+                case '中雨':
+                case '大雨':
+                case '暴雨':
+                case '阵雨':
+                    weatherClass = 'weather-rainy';
+                    break;
+                case '小雪':
+                case '中雪':
+                case '大雪':
+                case '暴雪':
+                    weatherClass = 'weather-snowy';
+                    break;
+                case '雾':
+                case '霾':
+                    weatherClass = 'weather-foggy';
+                    break;
+                case '雷阵雨':
+                    weatherClass = 'weather-stormy';
+                    break;
+                default:
+                    weatherClass = '';
+            }
+            
+            if (weatherClass) {
+                document.body.classList.add(weatherClass);
+            }
+            
+            // 记录调试信息
+            logDebugInfo(weatherType, weatherClass);
+        }
+
+        function clearWeatherBackground() {
+            // 移除所有天气相关的类
+            document.body.classList.remove('weather-sunny', 'weather-cloudy', 'weather-rainy', 'weather-snowy', 'weather-foggy', 'weather-stormy');
+            
+            // 记录调试信息
+            logDebugInfo('无', '无');
+        }
+
+        function logDebugInfo(weatherType, weatherClass) {
+            const debugLog = document.getElementById('debug-log');
+            const currentTime = new Date().toLocaleTimeString();
+            const logEntry = `${currentTime} - 天气类型: ${weatherType}, 应用的类: ${weatherClass}, body类: ${document.body.className}\n`;
+            debugLog.textContent += logEntry;
+            debugLog.scrollTop = debugLog.scrollHeight;
+        }
+
+        // 初始化调试信息
+        logDebugInfo('无', '无');
+    </script>
+</body>
+</html>

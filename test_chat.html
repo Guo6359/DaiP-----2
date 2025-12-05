@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试聊天室登录</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>测试聊天室登录</h1>
+    <div id="output"></div>
+    
+    <script>
+        // 显示输出信息
+        function showOutput(message) {
+            const output = document.getElementById('output');
+            output.innerHTML += `<p>${new Date().toLocaleTimeString()}: ${message}</p>`;
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        // 测试步骤
+        async function runTest() {
+            const serverUrl = 'http://localhost:5000';
+            const username = 'test_user';
+            const password = 'test_password';
+            
+            showOutput('开始测试...');
+            
+            // 1. 登录
+            showOutput('1. 尝试登录...');
+            const loginResponse = await fetch(`${serverUrl}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password }),
+                credentials: 'include'  // 包含cookie
+            });
+            
+            const loginResult = await loginResponse.json();
+            showOutput(`登录响应: ${loginResponse.status} - ${JSON.stringify(loginResult)}`);
+            
+            if (!loginResult.success) {
+                showOutput('登录失败');
+                return;
+            }
+            
+            // 2. 访问聊天页面，保存会话
+            showOutput('2. 访问聊天页面...');
+            const chatResponse = await fetch(`${serverUrl}/chat?username=${username}`, {
+                credentials: 'include'  // 包含cookie
+            });
+            
+            showOutput(`聊天页面响应: ${chatResponse.status}`);
+            
+            // 3. 创建Socket.IO连接
+            showOutput('3. 创建Socket.IO连接...');
+            const socket = io(serverUrl, {
+                transports: ['websocket'],
+                withCredentials: true  // 包含cookie
+            });
+            
+            socket.on('connect', () => {
+                showOutput('Socket.IO连接成功');
+            });
+            
+            socket.on('join_error', (data) => {
+                showOutput(`加入聊天室失败: ${data.error}`);
+            });
+            
+            socket.on('user_online', (data) => {
+                showOutput(`用户上线通知: ${data.username} 上线了`);
+                showOutput('测试成功！登录后可以正常加入聊天室');
+            });
+            
+            socket.on('disconnect', () => {
+                showOutput('Socket.IO连接断开');
+            });
+            
+            // 4. 发送join事件
+            setTimeout(() => {
+                showOutput('4. 发送join事件...');
+                socket.emit('join');
+            }, 1000);
+        }
+        
+        // 运行测试
+        runTest();
+    </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气背景测试</title>
+    <style>
+        /* 模拟聊天页面样式 */
+        .chat-container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+        }
+        
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f5f7fa;
+            transition: background 0.5s ease;
+        }
+        
+        /* 天气背景样式 */
+        body.weather-sunny .chat-main {
+            background: linear-gradient(135deg, #ffeb3b, #ffc107) !important;
+        }
+        
+        body.weather-cloudy .chat-main {
+            background: linear-gradient(135deg, #90caf9, #64b5f6) !important;
+        }
+        
+        body.weather-rainy .chat-main {
+            background: linear-gradient(135deg, #78909c, #455a64) !important;
+        }
+        
+        body.weather-snowy .chat-main {
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2) !important;
+        }
+        
+        body.weather-foggy .chat-main {
+            background: linear-gradient(135deg, #cfd8dc, #90a4ae) !important;
+        }
+        
+        body.weather-stormy .chat-main {
+            background: linear-gradient(135deg, #37474f, #263238) !important;
+        }
+        
+        /* 测试控制按钮 */
+        .test-controls {
+            position: fixed;
+            top: 20px;
+            left: 320px;
+            z-index: 1000;
+        }
+        
+        .test-btn {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="sidebar">
+            <h2>DaiP智能聊天室</h2>
+            <p>在线用户</p>
+        </div>
+        <div class="chat-main">
+            <div class="chat-header">
+                <h2>聊天室</h2>
+            </div>
+            <div class="chat-messages">
+                <div class="message">测试消息</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 测试控制按钮 -->
+    <div class="test-controls">
+        <h3>天气背景测试</h3>
+        <button class="test-btn" onclick="setWeather('晴')">晴</button>
+        <button class="test-btn" onclick="setWeather('多云')">多云</button>
+        <button class="test-btn" onclick="setWeather('小雨')">小雨</button>
+        <button class="test-btn" onclick="setWeather('雪')">雪</button>
+        <button class="test-btn" onclick="setWeather('雾')">雾</button>
+        <button class="test-btn" onclick="setWeather('雷阵雨')">雷阵雨</button>
+    </div>
+    
+    <script>
+        // 测试用的天气背景设置函数
+        function setWeather(weatherType) {
+            console.log('Setting weather:', weatherType);
+            const body = document.body;
+            
+            // 移除所有天气相关类
+            const weatherClasses = ['weather-sunny', 'weather-cloudy', 'weather-rainy', 'weather-snowy', 'weather-foggy', 'weather-stormy'];
+            weatherClasses.forEach(cls => {
+                body.classList.remove(cls);
+            });
+            
+            // 映射天气类型到对应的CSS类
+            let newClass = '';
+            switch(weatherType) {
+                case '晴':
+                    newClass = 'weather-sunny';
+                    break;
+                case '多云':
+                case '阴':
+                    newClass = 'weather-cloudy';
+                    break;
+                case '小雨':
+                case '中雨':
+                case '大雨':
+                case '暴雨':
+                    newClass = 'weather-rainy';
+                    break;
+                case '雪':
+                case '小雪':
+                case '中雪':
+                case '大雪':
+                    newClass = 'weather-snowy';
+                    break;
+                case '雾':
+                case '霾':
+                    newClass = 'weather-foggy';
+                    break;
+                case '雷阵雨':
+                    newClass = 'weather-stormy';
+                    break;
+            }
+            
+            // 添加新的天气背景类
+            if (newClass) {
+                body.classList.add(newClass);
+                console.log('Added class:', newClass);
+                console.log('Current body classes:', body.className);
+            }
+        }
+    </script>
+</body>
+</html>
