@@ -1,0 +1,596 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+/* 登录页面样式 */
+.login-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-header h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+
+.login-header p {
+    color: #7f8c8d;
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+#login-btn, #register-btn {
+    width: 100%;
+    padding: 12px 24px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+#login-btn:hover, #register-btn:hover {
+    background-color: #2980b9;
+}
+
+.error-message {
+    color: #e74c3c;
+    margin-top: 15px;
+    min-height: 20px;
+}
+
+/* 表单切换样式 */
+.switch-form {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.switch-btn {
+    background: none;
+    border: none;
+    color: #3498db;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.switch-btn:hover {
+    color: #2980b9;
+}
+
+.login-form h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+/* 聊天室页面样式 */
+.chat-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    background-color: #f5f7fa;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+    width: 280px;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+}
+
+.sidebar-header {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.sidebar-header h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.sidebar-header p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.user-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.user-list h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.user-item {
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.user-item::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.logout-btn {
+    padding: 12px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}
+
+/* 聊天区域样式 */
+.chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.chat-header {
+    padding: 20px;
+    background-color: #3498db;
+    color: white;
+    border-bottom: 1px solid #2980b9;
+}
+
+.chat-header h2 {
+    font-size: 20px;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+}
+
+.message {
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.message.user {
+    background-color: #3498db;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+}
+
+.message.other {
+    background-color: white;
+    color: #333;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.message.system {
+    background-color: #ecf0f1;
+    color: #7f8c8d;
+    max-width: 100%;
+    text-align: center;
+    font-style: italic;
+    margin: 10px auto;
+}
+
+.message-header {
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.message-content {
+    font-size: 15px;
+    line-height: 1.4;
+    white-space: pre-line;
+}
+
+.movie-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.movie-container iframe {
+    width: 400px;
+    height: 400px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.iframe-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.iframe-container iframe {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.music-card {
+    margin-top: 10px;
+    padding: 12px;
+    border: 1px solid #e1e8ed;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.music-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.music-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.music-btn {
+    padding: 8px 14px;
+    border: 1px solid #e1e8ed;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.music-btn.stop {
+    background-color: #ffeaea;
+}
+
+/* 消息输入区域样式 */
+.chat-input {
+    padding: 20px;
+    background-color: white;
+    border-top: 1px solid #e1e8ed;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    position: relative;
+}
+
+#message-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    font-size: 16px;
+    resize: none;
+    max-height: 120px;
+}
+
+#message-input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+#emoji-btn {
+    width: 48px;
+    height: 48px;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+#emoji-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #3498db;
+}
+
+.emoji-container {
+    position: absolute;
+    bottom: 80px;
+    right: 20px;
+    background-color: white;
+    border: 1px solid #e1e8ed;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-width: 300px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 5px;
+}
+
+.emoji-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.emoji-btn:hover {
+    background-color: #f0f0f0;
+}
+
+#send-btn {
+    padding: 12px 24px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 48px;
+}
+
+#send-btn:hover {
+    background-color: #2980b9;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .chat-container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+    }
+    
+    .login-container {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    .message {
+        max-width: 85%;
+    }
+    
+    .movie-container iframe {
+        width: 100%;
+        height: 300px;
+    }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message {
+    animation: fadeIn 0.3s ease;
+}
+
+/* 天气背景样式 - 优化版本 */
+/* 仅改变背景色，不影响消息内容的样式 */
+body.weather-sunny .chat-main {
+    background: linear-gradient(135deg, #ffeb3b, #ffc107) !important;
+    transition: background 0.5s ease;
+}
+
+body.weather-cloudy .chat-main {
+    background: linear-gradient(135deg, #90caf9, #64b5f6) !important;
+    transition: background 0.5s ease;
+}
+
+body.weather-rainy .chat-main {
+    background: linear-gradient(135deg, #1a237e, #303f9f) !important;
+    transition: background 0.5s ease;
+}
+
+body.weather-snowy .chat-main {
+    background: linear-gradient(135deg, #e0f7fa, #b2ebf2) !important;
+    transition: background 0.5s ease;
+}
+
+body.weather-foggy .chat-main {
+    background: linear-gradient(135deg, #cfd8dc, #90a4ae) !important;
+    transition: background 0.5s ease;
+}
+
+body.weather-stormy .chat-main {
+    background: linear-gradient(135deg, #37474f, #263238) !important;
+    transition: background 0.5s ease;
+}
+
+/* 天气背景下的基本文字颜色调整 - 保持消息可读性 */
+body.weather-rainy .sidebar, body.weather-stormy .sidebar {
+    color: white;
+}
+
+body.weather-rainy .sidebar-header p, body.weather-stormy .sidebar-header p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 移除可能影响交互的backdrop-filter */
+body.weather-cloudy .message.other, body.weather-rainy .message.other, body.weather-foggy .message.other, body.weather-stormy .message.other {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+/* 让聊天消息区域在天气背景下透明以展示渐变背景 */
+body.weather-sunny .chat-messages,
+body.weather-cloudy .chat-messages,
+body.weather-rainy .chat-messages,
+body.weather-snowy .chat-messages,
+body.weather-foggy .chat-messages,
+body.weather-stormy .chat-messages {
+    background-color: transparent !important;
+}
+
+/* 音乐卡片样式 */
+.music-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e1e8ed;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.music-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+}
+
+.music-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.music-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 12px;
+}
+
+.music-btn:hover {
+    background-color: #2980b9;
+}
+
+.music-btn.stop {
+    background-color: #e74c3c;
+}
+
+.music-btn.stop:hover {
+    background-color: #c0392b;
+}

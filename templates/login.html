@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DaiP智能聊天室 - 登录/注册</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>DaiP智能聊天室</h1>
+            <p>欢迎加入聊天</p>
+        </div>
+        
+        <!-- 登录表单 -->
+        <div id="login-form" class="login-form">
+            <h2>登录</h2>
+            <div class="form-group">
+                <label for="login-username">用户名</label>
+                <input type="text" id="login-username" placeholder="请输入用户名" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">密码</label>
+                <input type="password" id="login-password" placeholder="请输入密码" required>
+            </div>
+            <div class="form-group">
+                <label for="login-server">服务器地址</label>
+                <select id="login-server" required></select>
+            </div>
+            <button id="login-btn">登录</button>
+            <div class="switch-form">
+                <span>还没有账号？</span>
+                <button id="switch-to-register" class="switch-btn">立即注册</button>
+            </div>
+            <div id="login-error" class="error-message">{{ error }}</div>
+        </div>
+        
+        <!-- 注册表单 -->
+        <div id="register-form" class="login-form" style="display: none;">
+            <h2>注册</h2>
+            <div class="form-group">
+                <label for="register-username">用户名</label>
+                <input type="text" id="register-username" placeholder="请输入用户名(3-20字符)" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password">密码</label>
+                <input type="password" id="register-password" placeholder="请输入密码(至少6字符)" required>
+            </div>
+
+            <div class="form-group">
+                <label for="register-server">服务器地址</label>
+                <select id="register-server" required></select>
+            </div>
+            <button id="register-btn">注册</button>
+            <div class="switch-form">
+                <span>已有账号？</span>
+                <button id="switch-to-login" class="switch-btn">立即登录</button>
+            </div>
+            <div id="register-error" class="error-message"></div>
+        </div>
+    </div>
+
+    <script src="/static/js/login.js"></script>
+</body>
+</html>
